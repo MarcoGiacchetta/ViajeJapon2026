@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Japón · Itinerario final · Nov 2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f5f4f0;
+  color: #1a1a18;
+  padding: 24px 16px 48px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+h1 { font-size: 20px; font-weight: 500; margin-bottom: 2px; }
+.sub { font-size: 12px; color: #73726c; margin-bottom: 24px; }
+
+.phase { margin-bottom: 10px; border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.1); background: #fff; }
+.phase-header { padding: 10px 16px 8px; display: flex; align-items: center; gap: 10px; background: #f5f4f0; }
+.phase-label { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 10px; flex-shrink: 0; }
+.phase-title { font-size: 14px; font-weight: 600; color: #1a1a18; }
+.phase-sub { font-size: 12px; color: #73726c; margin-left: auto; white-space: nowrap; }
+.day-list { padding: 0 16px 12px; }
+.day-row { padding: 10px 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
+.day-row:last-child { border-bottom: none; }
+.day-header { display: flex; gap: 12px; }
+.day-num { font-size: 11px; color: #9c9a92; min-width: 90px; padding-top: 2px; line-height: 1.4; flex-shrink: 0; }
+.day-date { font-size: 10px; color: #9c9a92; display: block; }
+.day-main { font-size: 13px; font-weight: 600; color: #1a1a18; }
+.day-detail { font-size: 12px; color: #73726c; margin-top: 3px; line-height: 1.55; }
+.spots { margin-top: 8px; padding-left: 102px; }
+.spot-group { margin-bottom: 6px; }
+.spot-label { font-size: 10px; font-weight: 600; color: #9c9a92; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 3px; }
+.spot-list { display: flex; flex-wrap: wrap; gap: 4px; }
+.spot { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: #f0ede6; color: #4a4944; }
+.spot.highlight { background: #EEEDFE; color: #3C3489; }
+.spot.food { background: #FAECE7; color: #993C1D; }
+.spot.nature { background: #EAF3DE; color: #3B6D11; }
+.spot.temple { background: #FAEEDA; color: #854F0B; }
+.spot.tip { background: #E1F5EE; color: #0F6E56; }
+
+.tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
+.tag { font-size: 10px; padding: 2px 7px; border-radius: 3px; font-weight: 500; }
+.t-green  { background: #EAF3DE; color: #3B6D11; }
+.t-purple { background: #EEEDFE; color: #3C3489; }
+.t-amber  { background: #FAEEDA; color: #854F0B; }
+.t-teal   { background: #E1F5EE; color: #0F6E56; }
+.t-coral  { background: #FAECE7; color: #993C1D; }
+.t-gray   { background: #EEECE6; color: #5F5E5A; }
+.t-red    { background: #FDEAEA; color: #991D1D; }
+
+.note {
+  border-left: 3px solid #1D9E75; background: #fff;
+  border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0 0;
+  font-size: 12px; color: #73726c; line-height: 1.6;
+}
+.note strong { color: #1a1a18; font-weight: 600; }
+.warn {
+  border-left: 3px solid #EF9F27; background: #fff;
+  border-radius: 0 8px 8px 0; padding: 10px 14px; margin: 10px 0 0;
+  font-size: 12px; color: #73726c; line-height: 1.6;
+}
+.warn strong { color: #1a1a18; font-weight: 600; }
+
+.budget-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+.budget-table th, .budget-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.budget-table th { color: #73726c; font-weight: 600; font-size: 11px; }
+.budget-table td.num { text-align: right; font-weight: 500; }
+.budget-table tr.total td { font-weight: 600; border-top: 1px solid rgba(0,0,0,0.2); border-bottom: none; }
+
+@media (prefers-color-scheme: dark) {
+  body { background: #1c1c1a; color: #e0ddd4; }
+  h1 { color: #e0ddd4; }
+  .phase { background: #262624; border-color: rgba(255,255,255,0.08); }
+  .phase-header { background: #2e2e2b; }
+  .phase-title { color: #e0ddd4; }
+  .day-main { color: #e0ddd4; }
+  .day-row { border-bottom-color: rgba(255,255,255,0.07); }
+  .note, .warn { background: #262624; }
+  .note strong, .warn strong { color: #e0ddd4; }
+  .spot { background: #2e2e2b; color: #b4b2a9; }
+  .spot.highlight { background: #26215C; color: #CECBF6; }
+  .spot.food { background: #4A1B0C; color: #F5C4B3; }
+  .spot.nature { background: #173404; color: #C0DD97; }
+  .spot.temple { background: #412402; color: #FAC775; }
+  .spot.tip { background: #04342C; color: #9FE1CB; }
+  .t-green  { background: #173404; color: #C0DD97; }
+  .t-purple { background: #26215C; color: #CECBF6; }
+  .t-amber  { background: #412402; color: #FAC775; }
+  .t-teal   { background: #04342C; color: #9FE1CB; }
+  .t-coral  { background: #4A1B0C; color: #F5C4B3; }
+  .t-gray   { background: #2C2C2A; color: #B4B2A9; }
+  .t-red    { background: #3D0A0A; color: #F5AEAE; }
+}
+</style>
+</head>
+<body>
+
+<h1>Japón · Itinerario final</h1>
+<p class="sub">10–24 nov 2026 · Korean Air Ref. EYN6KA · Sin JR Pass · Sin Kanazawa · Billetes sueltos</p>
+
+<!-- VUELO IDA -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-label" style="background:#EEECE6;color:#5F5E5A">Vuelo ida</div>
+    <div class="phase-title">Madrid → Tokio</div>
+    <div class="phase-sub">10–11 nov</div>
+  </div>
+  <div class="day-list">
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Lun 10 nov</div>
+        <div>
+          <div class="day-main">MAD 21:25 → Seúl (ICN) → Tokio HND 22:50 (día 11)</div>
+          <div class="day-detail">KE914 + KE751. Llegada Haneda de noche. Traslado privado Klook reservado — conductor esperando con cartel en Terminal Internacional, planta 2. Check-in y a dormir.</div>
+          <div class="tags"><span class="tag t-gray">Ref. EYN6KA</span><span class="tag t-teal">Traslado Klook reservado · ~79$</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOKIO -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-label" style="background:#EEEDFE;color:#3C3489">Tokio</div>
+    <div class="phase-title">Tokio</div>
+    <div class="phase-sub">11–17 nov · 6 noches · Kōtōbashi, Sumida</div>
+  </div>
+  <div class="day-list">
+
+    <!-- Día 1 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 1<span class="day-date">Juev 12 nov</span></div>
+        <div>
+          <div class="day-main">Akihabara + Shibuya</div>
+          <div class="day-detail">Explora el barrio más icónico del anime y los videojuegos. Al atardecer, cruza a Shibuya.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Akihabara</div>
+          <div class="spot-list">
+            <span class="spot temple">Templo Yushima Seido</span>
+            <span class="spot temple">Santuario Kanda</span>
+            <span class="spot temple">Santuario Yanaguimori</span>
+            <span class="spot">Puente Hijiri al atardecer</span>
+            <span class="spot">Jinbocho (barrio libros)</span>
+            <span class="spot food">Kanda Daruma (taiyaki)</span>
+            <span class="spot highlight">Café Eorzea (Final Fantasy)</span>
+            <span class="spot food">Kikanbo Ramen</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde</div>
+          <div class="spot-list">
+            <span class="spot">Shibuya · cruce famoso</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 2 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 2<span class="day-date">Vier 13 nov</span></div>
+        <div>
+          <div class="day-main">Shinjuku + Asakusa</div>
+          <div class="day-detail">Senso-ji al amanecer antes de que lleguen las masas. Tarde en Asakusa y noche en los callejones de Shinjuku.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Shinjuku</div>
+          <div class="spot-list">
+            <span class="spot food">Omoide Yokocho (callejuelas + yakitori)</span>
+            <span class="spot highlight">Estatua Godzilla (Hotel Gracery, planta 8)</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Asakusa</div>
+          <div class="spot-list">
+            <span class="spot temple">Puerta Kaminarimon</span>
+            <span class="spot tip">Oficina de turismo (vistas)</span>
+            <span class="spot food">Calle Nakamise Dori</span>
+            <span class="spot">Kappabashi (cerámica)</span>
+            <span class="spot highlight">Oficinas Bandai</span>
+            <span class="spot food">Kannon-dori (postres)</span>
+            <span class="spot tip">Barco río Sumida → Odaiba (conecta con día 5)</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde · Azabudai Hills (20 min en metro)</div>
+          <div class="spot-list">
+            <span class="spot highlight">Expo Kojima Productions 10º Aniversario — Beyond the Strand</span>
+            <span class="spot tip">Entrada comprada en Klook · 2.600¥ · viernes abre 12:00-20:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 3 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 3<span class="day-date">Sáb 14 nov</span></div>
+        <div>
+          <div class="day-main">Akihabara con Rubén (amigo local)</div>
+          <div class="day-detail">Día completo con guía local: tiendas que no aparecen en las guías, arcades favoritos y sitios de comida que solo conocen los que viven allí.</div>
+          <div class="tags"><span class="tag t-purple">Guía local · Akihabara</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 4 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 4<span class="day-date">Dom 15 nov</span></div>
+        <div>
+          <div class="day-main">Harajuku · Yoyogi · Nakano Broadway</div>
+          <div class="day-detail">Mañana en Harajuku y Yoyogi. Tarde en Nakano Broadway: manga, figuras y coleccionables más baratos que en Akihabara. Cena en Maguro Mart — solo efectivo, reservar con antelación (abre 16:00 los domingos).</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Mañana</div>
+          <div class="spot-list">
+            <span class="spot temple">Santuario Meiji</span>
+            <span class="spot nature">Parque Yoyogi</span>
+            <span class="spot highlight">Takeshita Street</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde · Nakano (4 min de Shinjuku en JR Chuo)</div>
+          <div class="spot-list">
+            <span class="spot highlight">Nakano Broadway (manga, figuras, retro)</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Cena · por decidir</div>
+          <div class="spot-list">
+            <span class="spot tip">Abierto · preguntar a Rubén qué recomienda en la zona</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 5 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 5<span class="day-date">Lun 16 nov</span></div>
+        <div>
+          <div class="day-main">Tsukiji + Odaiba</div>
+          <div class="day-detail">Desayuno de sushi recién hecho en el mercado exterior de Tsukiji. Tarde en Odaiba — se puede llegar también en el barco del río Sumida desde Asakusa (ver día 2).</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Mañana</div>
+          <div class="spot-list">
+            <span class="spot food">Mercado exterior Tsukiji</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde · Odaiba</div>
+          <div class="spot-list">
+            <span class="spot highlight">teamLab Planets</span>
+            <span class="spot highlight">Gundam tamaño real (DiverCity)</span>
+            <span class="spot highlight">Tiendas figuras y videojuegos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 6 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 6<span class="day-date">Mar 17 nov</span></div>
+        <div>
+          <div class="day-main">Excursión a Nikko</div>
+          <div class="day-detail">Tren Tobu desde Asakusa con Nikko Pass (~2.700¥). Foliaje otoñal en pico. Vuelta a Tokio por la noche.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-list">
+          <span class="spot temple">Tōshō-gū (UNESCO)</span>
+          <span class="spot nature">Cascadas Kegon</span>
+          <span class="spot nature">Lago Chūzenji</span>
+          <span class="spot highlight">Momiji en pico</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- KIOTO -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-label" style="background:#FAEEDA;color:#854F0B">Kioto</div>
+    <div class="phase-title">Kioto</div>
+    <div class="phase-sub">18–22 nov · 4 noches · Fushimi-ku</div>
+  </div>
+  <div class="day-list">
+
+    <!-- Día 7 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 7<span class="day-date">Miér 18 nov</span></div>
+        <div>
+          <div class="day-main">Tokio → Kioto (Shinkansen Tokaido)</div>
+          <div class="day-detail">Trayecto directo ~2h15min, ~14.000¥/persona. Llegada con tarde libre. El alojamiento en Fushimi-ku está a 5-10 min andando de Fushimi Inari.</div>
+          <div class="tags"><span class="tag t-gray">Tokaido Shinkansen · ~2h15min</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 8 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 8<span class="day-date">Juev 19 nov</span></div>
+        <div>
+          <div class="day-main">Arashiyama + Monkey Park Iwatayama</div>
+          <div class="day-detail">Ir muy temprano (7-8h) para evitar masificación en el bambusario. Después subida al Monkey Park: macacos japoneses en libertad con vistas sobre Kioto. Momiji en pico.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-list">
+          <span class="spot nature">Bambusario · Río Ōi</span>
+          <span class="spot nature">Monkey Park Iwatayama (~550¥)</span>
+          <span class="spot highlight">Momiji Arashiyama</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 9 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 9<span class="day-date">Vier 20 nov</span></div>
+        <div>
+          <div class="day-main">Enkōji + Monte Kurama → Kibune</div>
+          <div class="day-detail">Mañana en Enkōji a las 9:00 — jardín zen con momiji espectacular, aforo muy limitado, casi solos. Salida ~10:30 hacia Kurama. Ruta senderismo por bosque de cedros. Restaurantes flotantes en el río Kibune. Onsen natural de Kurama al final. Ojo: en noviembre anochece ~17:00, salir temprano de Enkōji es clave.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Mañana · 9:00</div>
+          <div class="spot-list">
+            <span class="spot nature">Enkōji · jardín zen · momiji · entrada 800¥ · ✅ reservado 9:00</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde · Kurama → Kibune</div>
+          <div class="spot-list">
+            <span class="spot nature">Senderismo Kurama → Kibune (~2h)</span>
+            <span class="spot food">Restaurantes flotantes río Kibune</span>
+            <span class="spot tip">Onsen natural Kurama (~1.200¥)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 10 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 10<span class="day-date">Sáb 21 nov</span></div>
+        <div>
+          <div class="day-main">Bishamondo + Kiyomizudera + Fushimi Inari</div>
+          <div class="day-detail">Mañana temprana en Bishamondo (famoso por el suelo de hojas rojas en la escalera en noviembre). Después Kiyomizudera, abre desde las 6:00. Fushimi Inari al atardecer — el alojamiento está a 5-10 min andando. El día anterior (20 nov) a las 14:00 intentar cancelación Nintendo Museum en museum-tickets.nintendo.com — si sale, se puede meter en la tarde sustituyendo parte del recorrido.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Mañana</div>
+          <div class="spot-list">
+            <span class="spot nature">Bishamondo · hojas rojas escalera</span>
+            <span class="spot temple">Kiyomizudera (abre 6:00 · entrada 500¥)</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde</div>
+          <div class="spot-list">
+            <span class="spot temple">Fushimi Inari al atardecer</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Si hay suerte con cancelación (día 20 a las 14:00)</div>
+          <div class="spot-list">
+            <span class="spot highlight">Nintendo Museum · Uji · museum-tickets.nintendo.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Día 11 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 11<span class="day-date">Dom 22 nov</span></div>
+        <div>
+          <div class="day-main">Kioto → Nara (de paso) → Osaka</div>
+          <div class="day-detail">Salida temprana desde Kioto con maletas — dejarlas en consigna (coin lockers) en la estación de Nara. Unas 3-4h en Nara son suficientes. Tren a Osaka por la tarde, primera noche en Dotonbori.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Nara · ~3-4h (Kioto→Nara 45 min · Nara→Osaka 50 min)</div>
+          <div class="spot-list">
+            <span class="spot nature">Parque de los ciervos libres</span>
+            <span class="spot temple">Tōdai-ji (Gran Buda)</span>
+            <span class="spot nature">Momiji en el parque</span>
+            <span class="spot tip">Coin lockers en estación de Nara para maletas</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde · Osaka</div>
+          <div class="spot-list">
+            <span class="spot food">Llegada y primera cena en Dotonbori</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- OSAKA -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-label" style="background:#FAECE7;color:#993C1D">Osaka</div>
+    <div class="phase-title">Osaka</div>
+    <div class="phase-sub">22–23 nov · 2 noches</div>
+  </div>
+  <div class="day-list">
+
+    <!-- Día 12 -->
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Día 12<span class="day-date">Lun 23 nov</span></div>
+        <div>
+          <div class="day-main">Osaka · último día completo</div>
+          <div class="day-detail">Con Nara ya hecha el día anterior, hoy Osaka sin prisas. El Osaka Amazing Pass (3.500¥) incluye metro ilimitado + Castillo + Umeda Sky Building y se amortiza con esas dos entradas. Noche tranquila — vuelo a las 09:00 mañana.</div>
+        </div>
+      </div>
+      <div class="spots">
+        <div class="spot-group">
+          <div class="spot-label">Mañana · zona norte/centro</div>
+          <div class="spot-list">
+            <span class="spot temple">Castillo de Osaka (llegar temprano)</span>
+            <span class="spot nature">Parque Nakanoshima · río</span>
+            <span class="spot">Umeda Sky Building</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Tarde/noche · zona Namba</div>
+          <div class="spot-list">
+            <span class="spot highlight">Den Den Town</span>
+            <span class="spot food">Dotonbori (takoyaki, okonomiyaki, kushikatsu)</span>
+            <span class="spot">Namba</span>
+          </div>
+        </div>
+        <div class="spot-group">
+          <div class="spot-label">Si sobra tiempo</div>
+          <div class="spot-list">
+            <span class="spot">Santuario Tenmangu</span>
+            <span class="spot">Tenjinbashi-suji</span>
+            <span class="spot">Hep Five (noria)</span>
+          </div>
+        </div>
+      </div>
+      <div class="tags" style="padding-top:8px">
+        <span class="tag t-red">Noche tranquila · vuelo 09:00 mañana</span>
+        <span class="tag t-teal">Osaka Amazing Pass 3.500¥ — recomendado</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- VUELO VUELTA -->
+<div class="phase">
+  <div class="phase-header">
+    <div class="phase-label" style="background:#EEECE6;color:#5F5E5A">Vuelo vuelta</div>
+    <div class="phase-title">Osaka → Madrid</div>
+    <div class="phase-sub">24 nov</div>
+  </div>
+  <div class="day-list">
+    <div class="day-row">
+      <div class="day-header">
+        <div class="day-num">Mar 24 nov</div>
+        <div>
+          <div class="day-main">KIX 09:00 → Seúl → MAD 19:25</div>
+          <div class="day-detail">Salida hotel 05:30 máximo. Haruka Express KIX ~75 min. KE722 + KE913. Maletas preparadas la noche anterior.</div>
+          <div class="tags"><span class="tag t-red">Salida hotel 05:30</span><span class="tag t-gray">Haruka Express ~1.900¥</span><span class="tag t-gray">Ref. EYN6KA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>Transporte principal:</strong> Tokio→Kioto en Shinkansen Tokaido directo (~14.000¥/persona). Kioto→Osaka en tren local (~1.500¥/persona). Para Tokio y Osaka: tarjeta Suica/Pasmo (prepago, sirve en metro, bus y tiendas). Nikko: Nikko Pass desde Asakusa (~2.700¥ todo incluido).
+</div>
+
+<table class="budget-table">
+  <thead>
+    <tr><th>Trayecto</th><th class="num">Precio/persona</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Traslado privado Klook HND → hotel (para dos)</td><td class="num">~79$</td></tr>
+    <tr><td>Expo Kojima Productions · Azabudai Hills</td><td class="num">~2.600¥</td></tr>
+    <tr><td>Tokio → Kioto (Shinkansen Tokaido directo)</td><td class="num">~14.000¥</td></tr>
+    <tr><td>Nikko Pass (Asakusa ida/vuelta + bus)</td><td class="num">~2.700¥</td></tr>
+    <tr><td>Monkey Park Iwatayama (entrada)</td><td class="num">~550¥</td></tr>
+    <tr><td>Kioto → Osaka (tren local)</td><td class="num">~1.500¥</td></tr>
+    <tr><td>Osaka Amazing Pass (metro + atracciones)</td><td class="num">~3.500¥</td></tr>
+    <tr class="total"><td>Total aprox. por persona</td><td class="num">~24.850¥ + ~40$ (~195€)</td></tr>
+  </tbody>
+</table>
+
+<div class="warn">
+  <strong>Estado de reservas:</strong> ✅ Traslado HND reservado en Klook. ✅ Expo Kojima (día 2) entrada comprada en Klook. ⏳ teamLab Planets (día 5) — reservar online cuanto antes. ✅ Enkōji (día 9) — reservado a las 9:00. 🔓 Cena día 4 (Nakano) — abierto, por decidir con Rubén. 🎲 Nintendo Museum — sin entrada; intentar cancelación el día 20 nov a las 14:00 en museum-tickets.nintendo.com.
+</div>
+
+</body>
+</html>
